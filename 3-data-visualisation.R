@@ -67,8 +67,63 @@ ggplot(data = mpg) +
 ggplot(data = mpg) + 
   geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
 
-# Original
+# Original - but Repetitive
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy, color = drv)) +
   geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv, color = drv))
+
+# Better
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = drv)) +
+  geom_smooth(mapping = aes(linetype = drv, color = drv))
+
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, color = drv),
+    show.legend = TRUE
+  )
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth()
+
+?geom_smooth
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(se = FALSE)
+
+# geom_smooth added for sub-compact cars alone - filter()
+# Local geom_smooth data overrides global data
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class)) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE, 
+              aes(color = class))
+
+# Method changed to 'lm' from NULL [DEFAULT]
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+?loess
+?lm
+?glm
+?gam
+
+# https://ggplot2.tidyverse.org/reference/geom_smooth.html
+# Shift + Left Mouse
+
+?Geom
+
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(shape = 21, colour = "white", size = 5, stroke = 3, 
+             mapping = aes(fill = drv))
+
+# Bar Chart
+# Count of X plotted on Y
+# stat = "count" for geom_bar
+?geom_bar
+
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
 
