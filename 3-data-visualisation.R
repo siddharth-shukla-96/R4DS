@@ -1,10 +1,10 @@
+library(tidyverse)
+
 ?geom_point
 vignette("ggplot2-specs")
 colors()
 
 install.packages(c("nycflights13", "gapminder", "Lahman"))
-
-library(tidyverse)
 
 mpg
 head(mpg)
